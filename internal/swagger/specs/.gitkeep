@@ -1,0 +1,6 @@
+# This directory is for OpenAPI specs
+#
+# Development: Specs are served from ../omnipos-proto/openapi
+# Production: Specs are copied here via sync-swagger.sh before build
+#
+# This .gitkeep file ensures the directory exists and go:embed doesn't fail
