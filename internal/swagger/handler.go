@@ -88,6 +88,26 @@ func (h *Handler) serveSwaggerUI(w http.ResponseWriter, r *http.Request) {
 	}
 	serverURL := scheme + "://" + r.Host
 
+	// Define available specs
+	// Note: URLs must match the file structure served by the file server
+	// /openapi/ maps to the root of the embedded specs or local proto directory
+	specUrls := []struct {
+		URL  string `json:"url"`
+		Name string `json:"name"`
+	}{
+		{URL: "/openapi/user/v1/user.swagger.json", Name: "Merchant API"},
+		{URL: "/openapi/product/v1/product.swagger.json", Name: "Product API"},
+		{URL: "/openapi/product/v1/inventory.swagger.json", Name: "Inventory API"},
+	}
+
+	// Generate the urls array for Swagger UI
+	// We construct the JS array string manually to avoid complex templating dependencies
+	urlsJS := "[\n"
+	for _, spec := range specUrls {
+		urlsJS += "                    {url: '" + spec.URL + "', name: '" + spec.Name + "'},\n"
+	}
+	urlsJS += "                ]"
+
 	html := `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,7 +132,7 @@ func (h *Handler) serveSwaggerUI(w http.ResponseWriter, r *http.Request) {
     <script>
         window.onload = function() {
             window.ui = SwaggerUIBundle({
-                url: '` + h.swaggerURL + `?t=' + Date.now(),
+                urls: ` + urlsJS + `,
                 dom_id: '#swagger-ui',
                 deepLinking: true,
                 presets: [

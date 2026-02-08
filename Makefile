@@ -1,7 +1,18 @@
-.PHONY: run build test clean
+.PHONY: run build test clean tidy download help
 
-# ==============================================================================
-# Development
+# Default target
+help:
+	@echo "OmniPOS Gateway Service Makefile"
+	@echo ""
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@echo "  run             - Run the gateway locally"
+	@echo "  build           - Build the binary"
+	@echo "  test            - Run tests"
+	@echo "  tidy            - Tidy go modules"
+	@echo "  download        - Download go modules"
+	@echo "  clean           - Remove build artifacts"
 
 run:
 	go run cmd/http/main.go
@@ -14,9 +25,6 @@ test:
 
 clean:
 	rm -rf bin/
-
-# ==============================================================================
-# Dependencies
 
 tidy:
 	go mod tidy
