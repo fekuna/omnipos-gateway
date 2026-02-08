@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	authv1 "github.com/fekuna/omnipos-proto/proto/auth/v1"
+	authv1 "github.com/fekuna/omnipos-proto/gen/go/omnipos/auth/v1"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
