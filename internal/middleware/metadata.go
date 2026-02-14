@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	pkgMiddleware "github.com/fekuna/omnipos-pkg/middleware"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -19,6 +20,11 @@ func MetadataAnnotator(ctx context.Context, req *http.Request) metadata.MD {
 	// Timezone
 	if tz := req.Header.Get("X-Timezone"); tz != "" {
 		md.Set("x-timezone", tz)
+	}
+
+	// Request ID
+	if reqID := pkgMiddleware.GetRequestID(req.Context()); reqID != "" {
+		md.Set(pkgMiddleware.RequestIDHeader, reqID)
 	}
 
 	return md

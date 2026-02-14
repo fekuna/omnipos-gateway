@@ -13,6 +13,7 @@ require (
 	github.com/fekuna/omnipos-proto v0.0.0
 	github.com/go-redis/redis_rate/v10 v10.0.1
 	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.7
 	github.com/joho/godotenv v1.5.1
 	go.uber.org/zap v1.27.1

@@ -274,7 +274,7 @@ func main() {
 
 	// Apply CORS middleware and Rate Limiter
 	// Order: CORS -> RateLimit -> Mux
-	handler := middleware.CORS(rateLimiter.Limit(httpMux))
+	handler := middleware.CORS(rateLimiter.Limit(middleware.RequestIDMiddleware(httpMux)))
 
 	// Create HTTP server
 	srv := &http.Server{
